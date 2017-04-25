@@ -1,0 +1,97 @@
+<%= javascript_include_tag "heroes" %>
+<%= stylesheet_link_tag "heroes" %>
+
+<div class="container">
+    <h1><%= @hero.name %></h1>
+    
+    <h3>A Passive</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <select id="a_passive_select" class="form-control" placeholder="No skill">
+                <option></option>
+                <%= options_from_collection_for_select(@a_passives, :id, :name) %>
+            </select>
+            <div id="a_passive_heroes" class="flex-container"></div>
+        </div>
+        <div class="col-sm-6" id="a_passive_descriptions">
+                <div class="description-text" id="a_passive">
+                </div>
+        </div>
+    </div>
+    
+    <h3>B Passive</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <select id="b_passive_select" class="form-control" placeholder="No skill">
+                <option></option>
+                <%= options_from_collection_for_select(@b_passives, :id, :name) %>
+            </select>
+            <div id="b_passive_heroes" class="flex-container"></div>
+        </div>
+        <div class="col-sm-6" id="b_passive_descriptions">
+                <div class="description-text" id="b_passive">
+                </div>
+        </div>
+    </div>
+    
+    <h3>C Passive</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <select id="c_passive_select" class="form-control" placeholder="No skill">
+                <option></option>
+                <%= options_from_collection_for_select(@c_passives, :id, :name) %>
+            </select>
+            <div id="c_passive_heroes" class="flex-container"></div>
+        </div>
+        <div class="col-sm-6" id="c_passive_descriptions">
+            <div class="description-text" id="c_passive">
+            </div>
+        </div>
+    </div>
+    
+    <h3>Weapon</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <select id="weapon_select" class="form-control" placeholder="No skill">
+                <option></option>
+                <%= options_from_collection_for_select(@weapons, :id, :name) %>
+            </select>
+            <div id="weapon_heroes" class="flex-container"></div>
+        </div>
+        <div class="col-sm-6" id="weapon_descriptions">
+            <div class="description-text" id="weapon">
+            </div>
+        </div>
+    </div>
+    
+    <h3>Assist</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <select id="assist_select" class="form-control" placeholder="No skill">
+                <option></option>
+                <%= options_from_collection_for_select(@assists, :id, :name) %>
+            </select>
+            <div id="assist_heroes" class="flex-container"></div>
+        </div>
+        <div class="col-sm-6" id="assist_descriptions">
+            <div class="description-text" id="assist">
+            </div>
+        </div>
+    </div>
+    
+    <h3>Special</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <select id="special_select" class="form-control" placeholder="No skill">
+                <option></option>
+                <%= options_from_collection_for_select(@specials, :id, :name) %>
+            </select>
+            <div id="special_heroes" class="flex-container"></div>
+        </div>
+        <div class="col-sm-6" id="special_descriptions">
+            <div class="description-text" id="special">
+
+            </div>
+        </div>
+    </div>
+</div>

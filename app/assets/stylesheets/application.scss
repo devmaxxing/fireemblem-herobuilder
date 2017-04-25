@@ -1,0 +1,41 @@
+/*
+*= require selectize
+*= require selectize.default
+*/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background: image-url("wallpaper.png") no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+
+#hero-select-container {
+    text-align: center;
+    font-size: 3em;
+}
+
+.selectize-dropdown,
+.selectize-input,
+.selectize-input input {
+    font-size: 1em;
+    line-height: 1em;
+}
+
+.selectize-dropdown, .selectize-input {
+    max-width: 15em;
+}
+
+.selectize-dropdown-content {
+    max-height: 10em;
+}
+
+.selectize-dropdown-content .option {
+    height: 1.5em;
+    line-height: 1em;
+}
