@@ -1,4 +1,11 @@
 $(function(){
+    $("#hero_select").val(gon.hero.id);
+    $("#hero_select").selectize({
+        onChange: function(value) {
+            window.location.href= "/heroes/" + value;
+        }
+    });
+    
     selectDefaults();
     
     $("#a_passive_select").on("change", function(){
@@ -66,7 +73,7 @@ function selectSkill(id, skill_type) {
 
     if ($.inArray("" + gon.hero.id, hero_ids) === -1) {
         hero_ids.forEach(function(hero_id, idx){
-            $("#" + skill_type + "_heroes").append("<div>" + gon.heroes[hero_id].name + " " + gon.skill_heroes[id][hero_id] + "</div>");
+            $("#" + skill_type + "_heroes").append("<div><img src='/images/hero_icons/75px-Icon_Portrait_" + gon.heroes[hero_id].name + ".png'/>" + "</div>");
         });
     }
 }

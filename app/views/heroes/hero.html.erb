@@ -2,7 +2,12 @@
 <%= stylesheet_link_tag "heroes" %>
 
 <div class="container">
-    <h1><%= @hero.name %></h1>
+    <div id="hero-select-container">
+        <div>Select a hero</div>
+        <select id="hero_select">
+            <%= options_from_collection_for_select(@heroes, :id, :name) %>
+        </select>
+    </div>
     
     <h3>A Passive</h3>
     <div class="row">
