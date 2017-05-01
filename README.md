@@ -1,3 +1,3 @@
-#Fire Emblem Hero Builder
+Fire Emblem Hero Builder
 
 www.praisena.ga
