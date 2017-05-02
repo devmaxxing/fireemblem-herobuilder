@@ -3,7 +3,19 @@
     flex-wrap: wrap;
 }
 
+.info-container {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.description-container {
+    height: 100%;
+}
+
 .hero-icon-container {
+    max-width: 120px;
     padding: 5px;
     text-align: center;
 }

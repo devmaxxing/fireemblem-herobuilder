@@ -2,7 +2,6 @@
 *= require selectize
 *= require selectize.default
 */
-@import "bootstrap-sprockets";
 @import "bootstrap";
 
 body {
@@ -17,25 +16,25 @@ body {
 
 #hero-select-container {
     text-align: center;
-    font-size: 3em;
+    font-size: 3rem;
 }
 
 .selectize-dropdown,
 .selectize-input,
 .selectize-input input {
-    font-size: 1em;
-    line-height: 1em;
+    font-size: 2rem;
+    line-height: 2rem;
 }
 
 .selectize-dropdown, .selectize-input {
-    max-width: 13em;
+    max-width: 25rem;
 }
 
 .selectize-dropdown-content {
-    max-height: 10em;
+    max-height: 10rem;
 }
 
 .selectize-dropdown-content .option {
-    height: 1.5em;
-    line-height: 1em;
+    height: 3.5rem;
+    line-height: 2.5rem;
 }
