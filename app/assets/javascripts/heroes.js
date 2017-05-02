@@ -134,6 +134,6 @@ function selectSkill(id, skillType) {
         }
         heroStars += "</div>";
         var heroName = gon.heroes[heroID].name;
-        $("#" + skillType + "_heroes").append("<div class='hero-icon-container'><div>" + heroName + "</div><img src='/images/hero_icons/75px-Icon_Portrait_" + heroName.replace(/\s/g, "_") + ".png'/>" + heroStars + "</div>");
+        $("#" + skillType + "_heroes").append('<div class="hero-icon-container"><div>' + heroName + '</div><img src="/images/hero_icons/75px-Icon_Portrait_' + heroName.replace(/\s/g, "_") + '.png"/>' + heroStars + '</div>');
     });
 }
