@@ -102,11 +102,14 @@ function selectSkill(id, skillType) {
         heroIDs = [gon.hero.id];
     } else {
         // remove uninheritable characters
-        var numHeroes = heroIDs.length;
-        for (var i = 0; i < numHeroes; i++) {
-            var heroName = gon.heroes[heroIDs[i]].name;
+        var heroID;
+        var currentIndex = 0;
+        while (heroID = heroIDs[currentIndex]) {
+            var heroName = gon.heroes[heroID].name;
             if (heroName in uninheritable) {
-                heroIDs = heroIDs.splice(i, 1);
+                heroIDs.splice(currentIndex, 1);
+            } else {
+                currentIndex += 1;
             }
         }
         
