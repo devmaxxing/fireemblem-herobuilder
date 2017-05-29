@@ -4,7 +4,7 @@ class Skill < ApplicationRecord
     validates :sp_cost, numericality: { only_integer: true }
     has_many :hero_skills
     has_many :heroes, through: :hero_skills
-    has_one :required_skill, class_name: "Skill", foreign_key: "required_skill_id"
+    belongs_to :skill, foreign_key: "required_skill_id"
     
     scope :a_passives, -> { joins("INNER JOIN a_passives ON a_passives.id = skills.actable_id AND skills.actable_type = 'APassive'") }
     scope :b_passives, -> { joins("INNER JOIN b_passives ON b_passives.id = skills.actable_id AND skills.actable_type = 'BPassive'") }
