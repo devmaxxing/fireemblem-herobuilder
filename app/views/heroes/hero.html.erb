@@ -15,17 +15,17 @@
             <div class = "row">
                 <div class="col-4 stat-group">
                     <div>HP</div>
-                    <div><input class="form-control" type="number" value=<%=@hero.base_health%>></div>
+                    <div><input id="stat_health" class="form-control" type="number" value=<%=@hero.base_health%>></div>
                 </div>
                 
                 <div class="col-4 stat-group">
                     <div>ATK</div>
-                    <div><input class="form-control" type="number" value=<%=@hero.base_attack%>></div>
+                    <div><input id="stat_attack" class="form-control" type="number" value=<%=@hero.base_attack%>></div>
                 </div>
                 
                 <div class="col-4 stat-group">
                     <div>SPD</div>
-                    <div><input class="form-control" type="number" value=<%=@hero.base_speed%>></div>
+                    <div><input id="stat_speed" class="form-control" type="number" value=<%=@hero.base_speed%>></div>
                 </div>
             </div>
         </div>
@@ -33,17 +33,17 @@
             <div class = "row">
                 <div class="col-4 stat-group">
                     <div>DEF</div>
-                    <div><input class="form-control" type="number" value=<%=@hero.base_defense%>></div>
+                    <div><input id="stat_defense" class="form-control" type="number" value=<%=@hero.base_defense%>></div>
                 </div>
                 
                 <div class="col-4 stat-group">
                     <div>RES</div>
-                    <div><input class="form-control" type="number" value=<%=@hero.base_resistance%>></div>
+                    <div><input id="stat_resistance" class="form-control" type="number" value=<%=@hero.base_resistance%>></div>
                 </div>
                 
                 <div class="col-4 stat-group">
                     <div>Total</div>
-                    <div><input class="form-control" type="number" value=<%=@hero.base_health + @hero.base_attack + @hero.base_defense + @hero.base_resistance + @hero.base_speed%>></div>
+                    <div><input id="stat_total" class="form-control" type="number" value=<%=@hero.base_health + @hero.base_attack + @hero.base_defense + @hero.base_resistance + @hero.base_speed%>></div>
                 </div>
             </div>
         </div>

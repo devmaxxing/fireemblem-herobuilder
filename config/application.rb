@@ -13,7 +13,7 @@ module FeharenaBuilds
   
   INHERIT_RULES_DANCER_ONLY = "dancer_only"
 
-  INHERIT_RULES_COLOUR_ONLY = "colour_only"
+  INHERIT_RULES_COLOR_ONLY = "color_only"
   INHERIT_RULES_NO_BLUE = "no_blue"
   INHERIT_RULES_NO_RED = "no_red"
   INHERIT_RULES_NO_GREEN = "no_green"
@@ -34,10 +34,10 @@ module FeharenaBuilds
   
   INHERIT_RULES_NO_FLIERS = "no_fliers"
   
-  COLOUR_RED = "red"
-  COLOUR_BLUE = "blue"
-  COLOUR_GREEN = "green"
-  COLOUR_NO_COLOUR = "no_colour"
+  COLOR_RED = "red"
+  COLOR_BLUE = "blue"
+  COLOR_GREEN = "green"
+  COLOR_NO_COLOR = "no_color"
   
   WEAPON_TYPE_SWORD = "sword"
   WEAPON_TYPE_LANCE = "lance"

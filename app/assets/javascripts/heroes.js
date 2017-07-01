@@ -1,4 +1,13 @@
-var weaponTypes = {
+var statBonuses = {
+    weapon: 0,
+    attack: 0,
+    defense: 0,
+    health: 0,
+    resistance: 0,
+    speed: 0
+}
+
+var skillTypes = {
     A_PASSIVE: "a_passive",
     B_PASSIVE: "b_passive",
     C_PASSIVE: "c_passive",
@@ -16,7 +25,7 @@ var uninheritable = {
 $(function(){
     $("#hero_select").val(gon.hero.id);
     $("#hero_select").selectize({
-        onChange: function(value) {
+        onItemAdd: function(value) {
             window.location.href= "/heroes/" + value;
         }
     });
@@ -24,27 +33,27 @@ $(function(){
     selectDefaults();
     
     $("#a_passive_select").on("change", function(){
-        selectSkill($(this).val(), weaponTypes.A_PASSIVE);
+        selectSkill($(this).val(), skillTypes.A_PASSIVE);
     });
     
     $("#b_passive_select").on("change", function(){
-        selectSkill($(this).val(), weaponTypes.B_PASSIVE);
+        selectSkill($(this).val(), skillTypes.B_PASSIVE);
     });
     
     $("#c_passive_select").on("change", function(){
-        selectSkill($(this).val(), weaponTypes.C_PASSIVE);
+        selectSkill($(this).val(), skillTypes.C_PASSIVE);
     });
     
     $("#weapon_select").on("change", function(){
-        selectSkill($(this).val(), weaponTypes.WEAPON);
+        selectSkill($(this).val(), skillTypes.WEAPON);
     });
     
     $("#assist_select").on("change", function(){
-        selectSkill($(this).val(), weaponTypes.ASSIST);
+        selectSkill($(this).val(), skillTypes.ASSIST);
     });
     
     $("#special_select").on("change", function(){
-        selectSkill($(this).val(), weaponTypes.SPECIAL);
+        selectSkill($(this).val(), skillTypes.SPECIAL);
     });
 });
 
@@ -58,85 +67,126 @@ function selectDefaults() {
     }); 
 }
 
-function selectSkill(id, skillType) {
-    $("#" + skillType + "_heroes").empty();
-    var description = "";
-    var sp_cost = null;
-    var mt = null;
-    var rng = null;
-    var cooldown = null;
-    
-    switch (skillType) {
-        case weaponTypes.A_PASSIVE:
-            description = gon.a_passives[id].description;
-            sp_cost = gon.a_passives[id].sp_cost;
-            break;
-        case weaponTypes.B_PASSIVE:
-            description = gon.b_passives[id].description;
-            sp_cost = gon.b_passives[id].sp_cost;
-            break;
-        case weaponTypes.C_PASSIVE:
-            description = gon.c_passives[id].description;
-            sp_cost = gon.c_passives[id].sp_cost;
-            break;
-        case weaponTypes.SPECIAL:
-            description = gon.specials[id].description;
-            sp_cost = gon.specials[id].sp_cost;
-            cooldown = "<b>Cooldown</b>: " + gon.specials[id].cooldown;
-            break;
-        case weaponTypes.WEAPON:
-            description = gon.weapons[id].description;
-            sp_cost = gon.weapons[id].sp_cost;
-            mt = "<b>Might</b>: " + gon.weapons[id].might;
-            rng = "<b>Range</b>: " + gon.weapons[id].range;
-            break;
-        case weaponTypes.ASSIST:
-            description = gon.assists[id].description;
-            sp_cost = gon.assists[id].sp_cost;
-            break;
-    }
-        
-    var heroIDs = Object.keys(gon.skill_heroes[id]);
+function setAPassiveModifiers(attack, defense, health, resistance, speed) {
+    statBonuses.attack = attack;
+    statBonuses.defense = defense;
+    statBonuses.health = health;
+    statBonuses.resistance = resistance;
+    statBonuses.speed = speed;
+    updateStats();
+}
 
-    if ($.inArray("" + gon.hero.id, heroIDs) != -1) {
-        heroIDs = [gon.hero.id];
-    } else {
-        // remove uninheritable characters
-        var heroID;
-        var currentIndex = 0;
-        while (heroID = heroIDs[currentIndex]) {
-            var heroName = gon.heroes[heroID].name;
-            if (heroName in uninheritable) {
-                heroIDs.splice(currentIndex, 1);
-            } else {
-                currentIndex += 1;
+function updateStats() {
+    var attack = gon.hero.base_attack + statBonuses.attack + statBonuses.weaponMight;
+    var defense = gon.hero.base_defense + statBonuses.defense;
+    var health = gon.hero.base_health + statBonuses.health;
+    var resistance = gon.hero.base_resistance + statBonuses.resistance;
+    var speed = gon.hero.base_speed + statBonuses.speed;
+    $("#stat_attack").val(attack);
+    $("#stat_defense").val(defense);
+    $("#stat_health").val(health);
+    $("#stat_resistance").val(resistance);
+    $("#stat_speed").val(speed);
+    $("#stat_total").val(attack + defense + health + resistance + speed);
+}
+
+function selectSkill(id, skillType) {
+    if (id) {
+        $("#" + skillType + "_heroes").empty();
+        var description = "";
+        var sp_cost = null;
+        var mt = null;
+        var rng = null;
+        var cooldown = null;
+        
+        switch (skillType) {
+            case skillTypes.A_PASSIVE:
+                setAPassiveModifiers(gon.a_passives[id].effect_attack,
+                                     gon.a_passives[id].effect_defense,
+                                     gon.a_passives[id].effect_health,
+                                     gon.a_passives[id].effect_resistance,
+                                     gon.a_passives[id].effect_speed);
+                description = gon.a_passives[id].description;
+                sp_cost = gon.a_passives[id].sp_cost;
+                break;
+            case skillTypes.B_PASSIVE:
+                description = gon.b_passives[id].description;
+                sp_cost = gon.b_passives[id].sp_cost;
+                break;
+            case skillTypes.C_PASSIVE:
+                description = gon.c_passives[id].description;
+                sp_cost = gon.c_passives[id].sp_cost;
+                break;
+            case skillTypes.SPECIAL:
+                description = gon.specials[id].description;
+                sp_cost = gon.specials[id].sp_cost;
+                cooldown = "<b>Cooldown</b>: " + gon.specials[id].cooldown;
+                break;
+            case skillTypes.WEAPON:
+                description = gon.weapons[id].description;
+                sp_cost = gon.weapons[id].sp_cost;
+                statBonuses.weaponMight = gon.weapons[id].might;
+                updateStats();
+                mt = "<b>Might</b>: " + gon.weapons[id].might;
+                rng = "<b>Range</b>: " + gon.weapons[id].range;
+                break;
+            case skillTypes.ASSIST:
+                description = gon.assists[id].description;
+                sp_cost = gon.assists[id].sp_cost;
+                break;
+        }
+            
+        var heroIDs = Object.keys(gon.skill_heroes[id]);
+    
+        if ($.inArray("" + gon.hero.id, heroIDs) != -1) {
+            heroIDs = [gon.hero.id];
+        } else {
+            // remove uninheritable characters
+            var heroID;
+            var currentIndex = 0;
+            while (heroID = heroIDs[currentIndex]) {
+                var heroName = gon.heroes[heroID].name;
+                if (heroName in uninheritable) {
+                    heroIDs.splice(currentIndex, 1);
+                } else {
+                    currentIndex += 1;
+                }
             }
+            
+            // SP Cost is increased by 50% for skill inheritance
+            sp_cost *= 1.5;
         }
         
-        // SP Cost is increased by 50% for skill inheritance
-        sp_cost *= 1.5;
-    }
-    
-    $("#" + skillType).text(description);
-    $("#" + skillType + "_sp").html("<b>SP Cost</b>: " + sp_cost);
-    
-    if (skillType === weaponTypes.WEAPON) {
-        $("#weapon_might").html(mt);
-        $("#weapon_range").html(rng);
-    } else if (skillType === weaponTypes.SPECIAL) {
-        $("#special_cooldown").html(cooldown);
-    }
-    
-    heroIDs.forEach(function(heroID, idx){
-        var heroStars = "<div class='hero-stars'>";
-        var levelLearned = gon.skill_heroes[id][heroID];
-        if (levelLearned > 1) {
-            for (var i = 0; i < levelLearned; i++) {
-                heroStars += "<img src='/images/20px-Icon_Rarity_" + levelLearned + ".png'/>"
-            }
+        $("#" + skillType).text(description);
+        $("#" + skillType + "_sp").html("<b>SP Cost</b>: " + sp_cost);
+        
+        if (skillType === skillTypes.WEAPON) {
+            $("#weapon_might").html(mt);
+            $("#weapon_range").html(rng);
+        } else if (skillType === skillTypes.SPECIAL) {
+            $("#special_cooldown").html(cooldown);
         }
-        heroStars += "</div>";
-        var heroName = gon.heroes[heroID].name;
-        $("#" + skillType + "_heroes").append('<div class="hero-icon-container"><div>' + heroName + '</div><img src="/images/hero_icons/75px-Icon_Portrait_' + heroName.replace(/\s/g, "_") + '.png"/>' + heroStars + '</div>');
-    });
+        
+        heroIDs.forEach(function(heroID, idx){
+            var heroStars = "<div class='hero-stars'>";
+            var levelLearned = gon.skill_heroes[id][heroID];
+            if (levelLearned > 1) {
+                for (var i = 0; i < levelLearned; i++) {
+                    heroStars += "<img src='/images/20px-Icon_Rarity_" + levelLearned + ".png'/>"
+                }
+            }
+            heroStars += "</div>";
+            var heroName = gon.heroes[heroID].name;
+            $("#" + skillType + "_heroes").append('<div class="hero-icon-container"><div>' + heroName + '</div><img src="/images/hero_icons/75px-Icon_Portrait_' + heroName.replace(/\s/g, "_") + '.png"/>' + heroStars + '</div>');
+        });
+    } else { // deselect skill
+        $("#" + skillType + "_descriptions .description-text").empty();
+        $("#" + skillType + "_heroes").empty();
+        if (skillType === skillTypes.A_PASSIVE) {
+            setAPassiveModifiers(0, 0, 0, 0, 0);
+        } else if (skillType === skillTypes.WEAPON) {
+            statBonuses.weaponMight = 0;
+            updateStats();
+        }
+    }
 }

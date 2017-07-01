@@ -1,5 +1,5 @@
 class Hero < ApplicationRecord
-    validates :name, :colour, :weapon_type, :move_type, :base_attack, :base_defense, :base_health, :base_resistance, :base_speed, presence: true
+    validates :name, :color, :weapon_type, :move_type, :base_attack, :base_defense, :base_health, :base_resistance, :base_speed, presence: true
     has_many :hero_skills
     has_many :skills, through: :hero_skills do
         def default_skill_info
@@ -7,10 +7,10 @@ class Hero < ApplicationRecord
         end
     end
     
-    def weak_to_colour(colour)
-        if  ( self.colour == FeharenaBuilds::COLOUR_RED && colour == FeharenaBuilds::COLOUR_BLUE ) ||
-            ( self.colour == FeharenaBuilds::COLOUR_BLUE && colour == FeharenaBuilds::COLOUR_GREEN ) ||
-            ( self.colour == FeharenaBuilds::COLOUR_GREEN && colour == FeharenaBuilds::COLOUR_RED )
+    def weak_to_color(color)
+        if  ( self.color == FeharenaBuilds::color_RED && color == FeharenaBuilds::color_BLUE ) ||
+            ( self.color == FeharenaBuilds::color_BLUE && color == FeharenaBuilds::color_GREEN ) ||
+            ( self.color == FeharenaBuilds::color_GREEN && color == FeharenaBuilds::color_RED )
             return true
         end
         return false
@@ -32,14 +32,14 @@ class Hero < ApplicationRecord
                 return true
             elsif skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NOT_INHERITABLE ||
                 skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_DANCER_ONLY ||
-                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_COLOUR_ONLY && self.colour == FeharenaBuilds::COLOUR_NO_COLOUR ) ||
-                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_BLUE && self.colour == FeharenaBuilds::COLOUR_BLUE ) ||
-                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_GREEN && self.colour == FeharenaBuilds::COLOUR_GREEN ) ||
-                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_RED && self.colour == FeharenaBuilds::COLOUR_RED ) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_COLOR_ONLY && self.color == FeharenaBuilds::COLOR_NO_COLOR ) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_BLUE && self.color == FeharenaBuilds::COLOR_BLUE ) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_GREEN && self.color == FeharenaBuilds::COLOR_GREEN ) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_RED && self.color == FeharenaBuilds::COLOR_RED ) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_STAFF && self.weapon_type == FeharenaBuilds::WEAPON_TYPE_STAFF ) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_FLIERS && self.move_type == FeharenaBuilds::MOVE_TYPE_FLIER ) ||
                 ( skill.specific.is_a?(Weapon) && (skill.specific.weapon_type != self.weapon_type ||
-                                         (skill.specific.colour && skill.specific.colour != self.colour))) ||
+                                         (skill.specific.color && skill.specific.color != self.color))) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_ARMOUR_ONLY && self.move_type != FeharenaBuilds::MOVE_TYPE_ARMOUR) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_CAVALRY_ONLY && self.move_type != FeharenaBuilds::MOVE_TYPE_CAVALRY) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_FLIER_ONLY && self.move_type != FeharenaBuilds::MOVE_TYPE_FLIER) ||

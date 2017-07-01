@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509001508) do
+ActiveRecord::Schema.define(version: 20170628025730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "a_passives", force: :cascade do |t|
-    t.integer "effect_health"
-    t.integer "effect_speed"
-    t.integer "effect_attack"
-    t.integer "effect_defense"
-    t.integer "effect_resistance"
+    t.integer "effect_health",     default: 0
+    t.integer "effect_speed",      default: 0
+    t.integer "effect_attack",     default: 0
+    t.integer "effect_defense",    default: 0
+    t.integer "effect_resistance", default: 0
   end
 
   create_table "assists", force: :cascade do |t|
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170509001508) do
 
   create_table "heros", force: :cascade do |t|
     t.string  "name"
-    t.string  "colour"
+    t.string  "color"
     t.string  "weapon_type"
     t.string  "move_type"
     t.integer "base_health"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20170509001508) do
     t.string  "weapon_type"
     t.integer "might"
     t.integer "range"
-    t.string  "colour"
+    t.string  "color"
   end
 
 end
