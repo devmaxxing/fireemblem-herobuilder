@@ -1,3 +1,9 @@
+var heroIV = {
+    bane: "",
+    boon: "",
+    merge: 0
+}
+
 var statBonuses = {
     weapon: 0,
     attack: 0,
@@ -77,17 +83,67 @@ function setAPassiveModifiers(attack, defense, health, resistance, speed) {
 }
 
 function updateStats() {
-    var attack = gon.hero.base_attack + statBonuses.attack + statBonuses.weaponMight;
-    var defense = gon.hero.base_defense + statBonuses.defense;
-    var health = gon.hero.base_health + statBonuses.health;
-    var resistance = gon.hero.base_resistance + statBonuses.resistance;
-    var speed = gon.hero.base_speed + statBonuses.speed;
-    $("#stat_attack").val(attack);
-    $("#stat_defense").val(defense);
-    $("#stat_health").val(health);
-    $("#stat_resistance").val(resistance);
-    $("#stat_speed").val(speed);
-    $("#stat_total").val(attack + defense + health + resistance + speed);
+    var newStats = {
+        ATK: gon.hero.max_attack + statBonuses.attack + statBonuses.weaponMight,
+        DEF: gon.hero.max_defense + statBonuses.defense,
+        HP: gon.hero.max_health + statBonuses.health,
+        RES: gon.hero.max_resistance + statBonuses.resistance,
+        SPD: gon.hero.max_speed + statBonuses.speed
+    }
+    
+    if (heroIV.bane)
+        newStats[heroIV.bane] -= 3;
+    if (heroIV.boon)
+        newStats[heroIV.boon] += 3;
+
+    if (heroIV.merge > 0) {
+        var statPriorities = {HP: 4, ATK: 3, SPD: 2, DEF: 1, RES: 0};
+        // higher number means higher priority
+        
+        var baseStats = [{stat: "HP", val: gon.hero.base_health}, 
+                        {stat: "ATK", val: gon.hero.base_attack}, 
+                        {stat: "DEF", val: gon.hero.base_defense}, 
+                        {stat: "SPD", val: gon.hero.base_speed}, 
+                        {stat: "RES", val: gon.hero.base_resistance}];
+                        
+        baseStats.sort(function(statA, statB) {
+            if (statA.val == statB.val) {
+                return statPriorities[statB.stat] - statPriorities[statA.stat];
+            }
+            return statB.val - statA.val;
+        });
+    
+        switch (heroIV.merge) {
+            case 1: newStats[baseStats[0].stat]++;
+                    newStats[baseStats[1].stat]++;
+            case 2: newStats[baseStats[2].stat]++;
+                    newStats[baseStats[3].stat]++;
+            case 3: newStats[baseStats[4].stat]++;
+                    newStats[baseStats[0].stat]++;
+            case 4: newStats[baseStats[1].stat]++;
+                    newStats[baseStats[2].stat]++;
+            case 5: newStats[baseStats[3].stat]++;
+                    newStats[baseStats[4].stat]++;
+            case 6: newStats[baseStats[0].stat]++;
+                    newStats[baseStats[1].stat]++;
+            case 7: newStats[baseStats[2].stat]++;
+                    newStats[baseStats[3].stat]++;
+            case 8: newStats[baseStats[4].stat]++;
+                    newStats[baseStats[0].stat]++;
+            case 9: newStats[baseStats[1].stat]++;
+                    newStats[baseStats[2].stat]++;
+            case 10: newStats[baseStats[3].stat]++;
+                    newStats[baseStats[4].stat]++;
+            default: break;
+        }
+    }
+    
+    $("#stat_attack").val(newStats.ATK);
+    $("#stat_defense").val(newStats.DEF);
+    $("#stat_health").val(newStats.HP);
+    $("#stat_resistance").val(newStats.RES);
+    $("#stat_speed").val(newStats.SPD);
+    $("#stat_total").val(newStats.ATK + newStats.DEF + newStats.HP + newStats.RES + newStats.SPD);
 }
 
 function selectSkill(id, skillType) {

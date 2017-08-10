@@ -11,6 +11,36 @@
     
     <h3>Stats</h3>
     <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-4">
+                    <div>Merge</div>
+                    <div>
+                        <select class="form-control" id="boon_select">
+                            <%= options_for_select([["", 0], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7], ["8", 8], ["9", 9], ["10", 10]]) %>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div>Boon</div>
+                    <div>
+                        <select class="form-control" id="boon_select">
+                            <%= options_for_select([[""], ["ATK"], ["DEF"], ["HP"], ["RES"], ["SPD"]]) %>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div>Bane</div>
+                    <div>
+                        <select class="form-control" id="bane_select">
+                            <%= options_for_select([[""], ["ATK"], ["DEF"], ["HP"], ["RES"], ["SPD"]]) %>    
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class = "col-md-6">
             <div class = "row">
                 <div class="col-4 stat-group">

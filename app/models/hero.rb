@@ -1,5 +1,5 @@
 class Hero < ApplicationRecord
-    validates :name, :color, :weapon_type, :move_type, :base_attack, :base_defense, :base_health, :base_resistance, :base_speed, presence: true
+    validates :name, :color, :weapon_type, :move_type, :base_attack, :base_defense, :base_health, :base_resistance, :base_speed, :max_attack, :max_defense, :max_health, :max_resistance, :max_speed, presence: true
     has_many :hero_skills
     has_many :skills, through: :hero_skills do
         def default_skill_info
