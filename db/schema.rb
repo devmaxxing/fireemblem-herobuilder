@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804145542) do
+ActiveRecord::Schema.define(version: 20170811035309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(version: 20170804145542) do
   end
 
   create_table "c_passives", force: :cascade do |t|
+  end
+
+  create_table "child_skills", force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "child_id"
   end
 
   create_table "hero_skills", force: :cascade do |t|
@@ -58,7 +63,6 @@ ActiveRecord::Schema.define(version: 20170804145542) do
   create_table "skills", force: :cascade do |t|
     t.string  "type"
     t.string  "name"
-    t.integer "required_skill_id"
     t.text    "description"
     t.string  "inherit_rule"
     t.integer "sp_cost"

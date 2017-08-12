@@ -1,0 +1,2 @@
+class AssistSerializer < SkillSerializer
+end

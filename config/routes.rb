@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   
   get 'heroes', to: 'heroes#index'
   get 'heroes/:id', to: 'heroes#show'
+  
+  namespace :api do
+    resources :a_passives, :b_passives, :c_passives, :assists, :specials, :weapons, :heroes, :skills
+  end
 end
