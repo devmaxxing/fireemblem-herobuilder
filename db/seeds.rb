@@ -1088,7 +1088,7 @@ APassive.create([{
 		name: "Spd Res 2",
 		sp_cost: "160",
 		description: "Grants Spd/Res+2.",
-		inherit_rule: "normal"
+		inherit_rule: "normal",
 		effect_speed: 2,
 		effect_resistance: 2
 	},
