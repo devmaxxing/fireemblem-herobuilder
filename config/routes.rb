@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   get 'heroes/:id', to: 'heroes#show'
   
   namespace :api do
-    resources :a_passives, :b_passives, :c_passives, :assists, :specials, :weapons, :heroes, :skills
+    namespace :v1 do
+      resources :a_passives, :b_passives, :c_passives, :assists, :specials, :weapons, :heroes, :skills, :hero_skills, :child_skills
+      as :user do
+        post   "/sign-in"       => "sessions#create"
+        delete "/sign-out"      => "sessions#destroy"
+      end
+    end
   end
 end
