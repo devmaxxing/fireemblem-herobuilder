@@ -40,7 +40,7 @@ class Hero < ApplicationRecord
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_FLIERS && self.move_type == FeharenaBuilds::MOVE_TYPE_FLIER ) ||
                 ( skill.specific.is_a?(Weapon) && (skill.specific.weapon_type != self.weapon_type ||
                                          (skill.specific.color && skill.specific.color != self.color))) ||
-                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_ARMOUR_ONLY && self.move_type != FeharenaBuilds::MOVE_TYPE_ARMOUR) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_ARMOR_ONLY && self.move_type != FeharenaBuilds::MOVE_TYPE_ARMOR) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_CAVALRY_ONLY && self.move_type != FeharenaBuilds::MOVE_TYPE_CAVALRY) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_FLIER_ONLY && self.move_type != FeharenaBuilds::MOVE_TYPE_FLIER) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_STAFF_ONLY && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_STAFF) ||
@@ -48,8 +48,15 @@ class Hero < ApplicationRecord
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_AXE_ONLY && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_AXE) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_BOW_ONLY && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_BOW) ||
                 ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_MELEE_ONLY && self.is_ranged) ||
-                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_RANGED_ONLY && !self.is_ranged)
-                return false
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_RANGED_ONLY && !self.is_ranged) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_BLUE_TOME_ONLY && (self.weapon_type != FeharenaBuilds::WEAPON_TYPE_TOME || self.color != FeharenaBuilds::COLOR_BLUE)) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_GREEN_TOME_ONLY && (self.weapon_type != FeharenaBuilds::WEAPON_TYPE_TOME || self.color != FeharenaBuilds::COLOR_GREEN)) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_NO_TOME_OR_STAFF && (self.weapon_type == FeharenaBuilds::WEAPON_TYPE_TOME || self.weapon_type == FeharenaBuilds::WEAPON_TYPE_STAFF)) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_MELEE_INFANTRY_ARMOR_ONLY && (self.is_ranged || (self.move_type != FeharenaBuilds::MOVE_TYPE_ARMOR && self.move_type != FeharenaBuilds::MOVE_TYPE_INFANTRY))) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_LANCE_ONLY && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_LANCE) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_SWORD_ONLY && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_SWORD) ||
+                ( skill.inherit_rule == FeharenaBuilds::INHERIT_RULES_SWORD_LANCE_AXE_ONLY && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_LANCE && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_SWORD && self.weapon_type != FeharenaBuilds::WEAPON_TYPE_AXE)
+                    return false
             end
             return true
         else

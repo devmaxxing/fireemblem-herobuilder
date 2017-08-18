@@ -61,6 +61,21 @@ $(function(){
     $("#special_select").on("change", function(){
         selectSkill($(this).val(), skillTypes.SPECIAL);
     });
+    
+    $("#bane_select").on("change", function(){
+        heroIV.bane = $("#bane_select").val();
+        updateStats();
+    });
+    
+    $("#boon_select").on("change", function(){
+        heroIV.boon = $("#boon_select").val();
+        updateStats();
+    });
+    
+    $("#merge_select").on("change", function(){
+        heroIV.merge = parseInt($("#merge_select").val());
+        updateStats();
+    })
 });
 
 function selectDefaults() {
@@ -106,6 +121,13 @@ function updateStats() {
                         {stat: "SPD", val: gon.hero.base_speed}, 
                         {stat: "RES", val: gon.hero.base_resistance}];
                         
+        baseStats.forEach(function(item, index) {
+            if (item.stat == heroIV.bane)
+                item.val -= 1;
+            if (item.stat == heroIV.boon)
+                item.val += 1;
+        });
+                        
         baseStats.sort(function(statA, statB) {
             if (statA.val == statB.val) {
                 return statPriorities[statB.stat] - statPriorities[statA.stat];
@@ -114,26 +136,26 @@ function updateStats() {
         });
     
         switch (heroIV.merge) {
-            case 1: newStats[baseStats[0].stat]++;
-                    newStats[baseStats[1].stat]++;
-            case 2: newStats[baseStats[2].stat]++;
-                    newStats[baseStats[3].stat]++;
-            case 3: newStats[baseStats[4].stat]++;
-                    newStats[baseStats[0].stat]++;
-            case 4: newStats[baseStats[1].stat]++;
-                    newStats[baseStats[2].stat]++;
-            case 5: newStats[baseStats[3].stat]++;
-                    newStats[baseStats[4].stat]++;
-            case 6: newStats[baseStats[0].stat]++;
-                    newStats[baseStats[1].stat]++;
-            case 7: newStats[baseStats[2].stat]++;
-                    newStats[baseStats[3].stat]++;
-            case 8: newStats[baseStats[4].stat]++;
-                    newStats[baseStats[0].stat]++;
-            case 9: newStats[baseStats[1].stat]++;
-                    newStats[baseStats[2].stat]++;
             case 10: newStats[baseStats[3].stat]++;
                     newStats[baseStats[4].stat]++;
+            case 9: newStats[baseStats[1].stat]++;
+                    newStats[baseStats[2].stat]++;
+            case 8: newStats[baseStats[4].stat]++;
+                    newStats[baseStats[0].stat]++;
+            case 7: newStats[baseStats[2].stat]++;
+                    newStats[baseStats[3].stat]++;
+            case 6: newStats[baseStats[0].stat]++;
+                    newStats[baseStats[1].stat]++;
+            case 5: newStats[baseStats[3].stat]++;
+                    newStats[baseStats[4].stat]++;
+            case 4: newStats[baseStats[1].stat]++;
+                    newStats[baseStats[2].stat]++;
+            case 3: newStats[baseStats[4].stat]++;
+                    newStats[baseStats[0].stat]++;
+            case 2: newStats[baseStats[2].stat]++;
+                    newStats[baseStats[3].stat]++;
+            case 1: newStats[baseStats[0].stat]++;
+                    newStats[baseStats[1].stat]++;
             default: break;
         }
     }
